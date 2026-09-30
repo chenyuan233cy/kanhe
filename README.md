@@ -20,28 +20,28 @@
 
 ---
 
-## 1. 这是自己写的还是用了官方 26.4 的密码功能？
+## 1. 实现原理
 
-**两者都用，分工明确：**
+本 Mod 复用原版的“服务器地址查询参数”机制来承载密码，其余部分（弹窗、校验、重置、隐身）都是自己实现的：
 
-| 部分 | 归属 |
+| 部分 | 来源 |
 | --- | --- |
-| 密码在网络上怎么传（服务器地址里的 `?_id=xxxxxx` 查询参数、`minecraft:intent` 包） | **官方 26.4-snapshot-1 新增的机制**，Mod 直接复用，没有另造协议 |
+| 密码在网络上怎么传（服务器地址里的 `?_id=xxxxxx` 查询参数、`minecraft:intent` 包） | **原版机制**（服务器地址 `?_id=` 查询参数），直接复用，没有另造协议 |
 | 官方对密码的校验（`server.properties` 里的 `allowed-connection-ids`，在 `DedicatedServer.acceptsConnection` 里比对 `_id`） | 官方有，但**只能写死在 server.properties 里、改完要重启、对“对局域网开放”的存档完全无效** |
-| 进服前弹窗、掩码输入、按服务器记住密码、密码错误后重新弹窗 | **本 Mod 自己写的**（Mixin 进 `ConnectScreen.startConnecting`） |
-| 6 位随机码的生成 / 保存 / 运行时重置、`/kanhe` 指令 | **本 Mod 自己写的**（Mixin 进 `ServerHandshakePacketListenerImpl.handleIntention` + `Commands` 构造函数） |
-| 局域网（集成服务器）也被密码保护、没带密码的连接静默拒绝（服务器看起来像“根本不存在”） | **本 Mod 自己写的**，官方机制做不到 |
+| 进服前弹窗、掩码输入、按服务器记住密码、密码错误后重新弹窗 | **本 Mod 实现**（Mixin 进 `ConnectScreen.startConnecting`） |
+| 数字密码的生成 / 保存 / 运行时重置、位数调整、`/kanhe` 指令 | **本 Mod 实现**（Mixin 进 `ServerHandshakePacketListenerImpl.handleIntention` + `Commands` 构造函数） |
+| 局域网（集成服务器）也被密码保护、没带密码的连接静默拒绝（服务器看起来像“根本不存在”） | **本 Mod 实现**，原版机制做不到 |
 
-也就是说：**通道用的是官方的 `_id`，但“密码”这件事的完整生命周期（生成、提示、校验、重置、隐身）是本 Mod 实现的。**
+一句话：**传输通道沿用原版的 `_id`，而密码的完整生命周期（生成 → 弹窗输入 → 对合校验 → 重置 → 对外隐身）由本 Mod 实现。**
 
 ---
 
 ## 2. 安装
 
 ### 客户端
-把 `kanhe-1.0.0.jar` 放进：
+把 `kanhe-fabric-1.0.0+26.4-snapshot-1.jar` 放进：
 * 普通启动器（HMCL 等）：`.minecraft/mods/`
-* PCL 开启了版本隔离时：`.minecraft/versions/<版本名>/mods/`（本机两处都已放好）
+* PCL 开启了版本隔离时：`.minecraft/versions/<版本名>/mods/`
 
 ### 服务端（Fabric 服务端）
 放进服务器的 `mods/` 目录，重启服务器即可。
@@ -107,7 +107,7 @@
 
 产物：`build/libs/kanhe-fabric-1.0.0+26.4-snapshot-1.jar`（可直接丢进 `mods/`）。
 
-命名规则：`<modid>-<加载器>-<modversion>+<游戏版本>.jar`，以后出 Forge / NeoForge 版本时把 `gradle.properties` 里的 `mod_loader` 改成 `forge` / `neoforge` 即可，产物名自动区分。
+命名规则：`<modid>-<加载器>-<modversion>+<游戏版本>.jar`，以后出 Forge / NeoForge 版本时把 `gradle.properties` 里的 `mod_loader` 改成 `forge` / `neoforge`，产物名自动区分（构建脚本另需一套，不是改个名字就能编）。
 
 * 需要 **JDK 25**（26.4-snapshot-1 要求）。
 * Gradle 版本由 `gradle/wrapper/gradle-wrapper.properties` 指定（9.7.1），首次构建时 wrapper 会自动下载；
