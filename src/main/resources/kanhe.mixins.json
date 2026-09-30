@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.kanhe.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "CommandsMixin",
+    "ServerHandshakePacketListenerImplMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

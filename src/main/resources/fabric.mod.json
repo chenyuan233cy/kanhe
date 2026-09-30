@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "kanhe",
+  "version": "${version}",
+  "name": "Kanhe",
+  "description": "Asks for a masked join password before connecting to a server, and lets the server admin change or rotate the numeric code (length configurable) at any time.",
+  "authors": [
+    "Kanhe"
+  ],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.kanhe.KanheMod"
+    ],
+    "client": [
+      "com.kanhe.client.KanheClient"
+    ]
+  },
+  "mixins": [
+    "kanhe.mixins.json",
+    {
+      "config": "kanhe.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "java": ">=25"
+  }
+}

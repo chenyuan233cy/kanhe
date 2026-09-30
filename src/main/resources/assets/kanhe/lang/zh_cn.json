@@ -1,0 +1,19 @@
+{
+  "kanhe.screen.title": "服务器密码",
+  "kanhe.screen.hint": "密码",
+  "kanhe.screen.help": "请输入管理员提供的密码（纯数字），服务器没有密码时留空即可。",
+  "kanhe.screen.server": "服务器：%s",
+  "kanhe.screen.remember": "记住这个密码",
+  "kanhe.screen.join": "进入服务器",
+  "kanhe.screen.failed": "连接失败：%s",
+  "disconnect.kanhe.wrong": "服务器密码错误 - 请向管理员索要最新的密码",
+  "commands.kanhe.show": "当前服务器密码：%s（%s，%s 位）",
+  "commands.kanhe.on": "已启用",
+  "commands.kanhe.off": "已关闭",
+  "commands.kanhe.reset": "新的服务器密码：%s",
+  "commands.kanhe.set": "服务器密码已设置为 %s（%s 位）",
+  "commands.kanhe.length": "密码位数已改为 %s 位，新密码：%s",
+  "commands.kanhe.invalid": "密码必须是 %s~%s 位数字",
+  "commands.kanhe.enabled": "服务器密码保护已启用",
+  "commands.kanhe.disabled": "服务器密码保护已关闭"
+}

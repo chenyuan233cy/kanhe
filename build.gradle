@@ -1,0 +1,73 @@
+plugins {
+    id 'fabric-loom' version "${loom_version}"
+    id 'maven-publish'
+}
+
+// 版本号按 SemVer 惯例带上游戏版本，例如 1.0.0+26.4-snapshot-1
+version = "${mod_version}+${minecraft_version}"
+group = project.maven_group
+
+// 产物名：<mod>-<加载器>-<版本>+<游戏版本>.jar -> kanhe-fabric-1.0.0+26.4-snapshot-1.jar
+base {
+    archivesName = "${archives_base_name}-${mod_loader}"
+}
+
+repositories {
+    maven {
+        name = 'Fabric'
+        url = 'https://maven.fabricmc.net/'
+    }
+    mavenCentral()
+}
+
+loom {
+    mods {
+        "${archives_base_name}" {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    // 26.1 起 Minecraft 不再混淆，Fabric 发布的是一份空的 intermediary：
+    // 拿它当 mappings 就等于“官方名 = 名字”，不需要 yarn / officialMojangMappings。
+    mappings "net.fabricmc:intermediary:${intermediary_version}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${loader_version}"
+}
+
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') {
+        expand 'version': inputs.properties.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 25
+    it.options.encoding = 'UTF-8'
+}
+
+java {
+    withSourcesJar()
+}
+
+// 游戏不混淆，没有任何东西需要重映射；空 intermediary 里也不含 named 命名空间，
+// 所以关掉源码 jar 的 remap 步骤。
+tasks.named('remapSourcesJar') {
+    enabled = false
+}
+
+jar {
+    from('LICENSE') {
+        rename { "${it}_${project.base.archivesName.get()}" }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{
+  "kanhe.screen.title": "Kanhe",
+  "kanhe.screen.hint": "Password",
+  "kanhe.screen.help": "Type the code from the server admin (digits only). Leave it empty if the server has no password.",
+  "kanhe.screen.server": "Server: %s",
+  "kanhe.screen.remember": "Remember this password",
+  "kanhe.screen.join": "Join Server",
+  "kanhe.screen.failed": "Could not join: %s",
+  "disconnect.kanhe.wrong": "Wrong server password - ask the admin for the current code",
+  "commands.kanhe.show": "Server password: %s (%s, %s digits)",
+  "commands.kanhe.on": "enabled",
+  "commands.kanhe.off": "disabled",
+  "commands.kanhe.reset": "New server password: %s",
+  "commands.kanhe.set": "Server password set to %s (%s digits)",
+  "commands.kanhe.length": "Password length is now %s, new password: %s",
+  "commands.kanhe.invalid": "The password must be %s to %s digits",
+  "commands.kanhe.enabled": "Server password protection enabled",
+  "commands.kanhe.disabled": "Server password protection disabled"
+}
