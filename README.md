@@ -1,14 +1,22 @@
-# Kanhe —— 我的世界 26.4-snapshot-1 Fabric 进服密码 Mod
+# Kanhe（勘合）—— Minecraft Fabric 进服密码 Mod
 
 一个功能性 Fabric Mod：进服务器**前**弹窗要求输入密码（密码框是掩码显示，输入内容全部显示为 `*`），
 服务端校验，管理员可**随时重置**密码，位数可自定义（默认 6 位数字）。
 
-* 适配版本：Minecraft `26.4-snapshot-1` + Fabric Loader `0.19.5`
 * 客户端与服务端**都要装**这个 Mod（同一个 jar）
 * 不依赖 Fabric API，只依赖 Fabric Loader
-* Java 25
+* 需要 Java 25
 
-> 名字取自明代用于**对合验证**的凭证「勘合」：两份凭证对得上才生效，和这里 _id 的对合校验是同一套思路。
+> 名字取自明代用于**对合验证**的凭证「勘合」：两份凭证对得上才生效，和这里 `_id` 的对合校验是同一套思路。
+
+## 支持版本
+
+| 我的世界 | Fabric Loader | Mod 版本 | 下载 |
+| --- | --- | --- | --- |
+| 26.4-snapshot-1 | 0.19.5 | 1.0.0 | `kanhe-fabric-1.0.0+26.4-snapshot-1.jar` |
+
+> Fabric mod 与游戏版本是绑定的，支持新版本时需要**重新编译一份 jar**，然后在这张表里加一行、发一个新的 Release —— 项目名、标题、描述都不用动。
+> Release 约定：tag 用 `v<mod版本>`（如 `v1.0.0`），标题用 `Kanhe <mod版本>`，支持的我的世界版本写在 Release 说明和上表里。
 
 ---
 
