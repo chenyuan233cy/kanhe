@@ -53,7 +53,7 @@ public final class PasswordPrompt {
             ? address
             : new ServerAddress(address.getHost(), address.getPort(), address.getProperties().with(Kanhe.PROPERTY_ID, code));
         attempt = new Attempt(parent, address, data, quickPlay, transfer, code == null ? "" : code);
-        Kanhe.LOGGER.info("Connecting to {}:{} with a {} digit join password",
+        Kanhe.LOGGER.info("Connecting to {}:{} with a {} character join password",
             address.getHost(), address.getPort(), code == null ? 0 : code.length());
         reentrant = true;
         try {

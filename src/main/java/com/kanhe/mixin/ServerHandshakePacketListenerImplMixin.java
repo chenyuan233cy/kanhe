@@ -39,7 +39,7 @@ public class ServerHandshakePacketListenerImplMixin {
         if (packet.intention() == ClientIntent.LOGIN && codeSupplied) {
             // 客户端本来就知道这个服务器，所以可以告诉它为什么被拒绝。
             Component reason = Component.translatableWithFallback(Kanhe.KEY_WRONG_CODE,
-                "Wrong server password - ask the admin for the current 6 digit code");
+                "Wrong server password - ask the admin for the current password");
             this.connection.setupOutboundProtocol(LoginProtocols.CLIENTBOUND);
             this.connection.send(new ClientboundLoginDisconnectPacket(reason));
             this.connection.disconnect(reason);

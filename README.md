@@ -1,7 +1,7 @@
 # Kanhe（勘合）—— Minecraft Fabric 进服密码 Mod
 
 一个功能性 Fabric Mod：进服务器**前**弹窗要求输入密码（密码框是掩码显示，输入内容全部显示为 `*`），
-服务端校验，管理员可**随时重置**密码，位数可自定义（默认 6 位数字）。
+服务端校验，管理员可**随时重置**密码；随机密码的形态（数字 / 字母 / 混合）和位数（默认 6 位）都可以自定义，也可以手动指定任意密码。
 
 * 客户端与服务端**都要装**这个 Mod（同一个 jar）
 * 不依赖 Fabric API，只依赖 Fabric Loader
@@ -13,10 +13,12 @@
 
 | 我的世界 | Fabric Loader | Mod 版本 | 下载 |
 | --- | --- | --- | --- |
+| 26.4-snapshot-2 | 0.19.5 | 1.1.0 | `kanhe-fabric-1.1.0+26.4-snapshot-2.jar` |
+| 26.4-snapshot-2 | 0.19.5 | 1.0.0 | `kanhe-fabric-1.0.0+26.4-snapshot-2.jar` |
 | 26.4-snapshot-1 | 0.19.5 | 1.0.0 | `kanhe-fabric-1.0.0+26.4-snapshot-1.jar` |
 | 26.4-snapshot-2 | 0.19.5 | 1.0.0 | `kanhe-fabric-1.0.0+26.4-snapshot-2.jar` |
 
-> Fabric mod 与游戏版本是绑定的，支持新版本时需要**重新编译一份 jar**，然后在这张表里加一行、发一个新的 Release —— 项目名、标题、描述都不用动。
+> 同一个游戏版本可能有多个 Mod 版本，**下载表格最上面那一行**（最新）即可。Fabric mod 与游戏版本是绑定的，支持新版本时需要**重新编译一份 jar**，然后在这张表里加一行、发一个新的 Release —— 项目名、标题、描述都不用动。
 > Release 约定：tag 用 `v<mod版本>`（如 `v1.0.0`），标题用 `Kanhe <mod版本>`，支持的我的世界版本写在 Release 说明和上表里。
 
 ---
@@ -30,7 +32,7 @@
 | 密码在网络上怎么传（服务器地址里的 `?_id=xxxxxx` 查询参数、`minecraft:intent` 包） | **原版机制**（服务器地址 `?_id=` 查询参数），直接复用，没有另造协议 |
 | 官方对密码的校验（`server.properties` 里的 `allowed-connection-ids`，在 `DedicatedServer.acceptsConnection` 里比对 `_id`） | 官方有，但**只能写死在 server.properties 里、改完要重启、对“对局域网开放”的存档完全无效** |
 | 进服前弹窗、掩码输入、按服务器记住密码、密码错误后重新弹窗 | **本 Mod 实现**（Mixin 进 `ConnectScreen.startConnecting`） |
-| 数字密码的生成 / 保存 / 运行时重置、位数调整、`/kanhe` 指令 | **本 Mod 实现**（Mixin 进 `ServerHandshakePacketListenerImpl.handleIntention` + `Commands` 构造函数） |
+| 随机密码的生成（数字 / 字母 / 混合）、保存、运行时重置、形态与位数调整、`/kanhe` 指令 | **本 Mod 实现**（Mixin 进 `ServerHandshakePacketListenerImpl.handleIntention` + `Commands` 构造函数） |
 | 局域网（集成服务器）也被密码保护、没带密码的连接静默拒绝（服务器看起来像“根本不存在”） | **本 Mod 实现**，原版机制做不到 |
 
 一句话：**传输通道沿用原版的 `_id`，而密码的完整生命周期（生成 → 弹窗输入 → 对合校验 → 重置 → 对外隐身）由本 Mod 实现。**
@@ -56,7 +58,7 @@
 ### 玩家
 1. 在多人游戏里正常输入 `IP:端口`，点“加入服务器”。
 2. 弹出 **服务器密码** 界面（标题、服务器名、提示、密码输入框、记住密码勾选框、进入/取消按钮）。
-3. 输入管理员给的密码（纯数字，位数由服务器设定，默认 6 位），回车或点“进入服务器”。
+3. 输入管理员给的密码（输入内容显示为 `*`），回车或点“进入服务器”。
 4. 密码框里的内容始终显示为 `*`，输入的字符数看得见、内容看不见。
 5. 密码错了会回到这个界面并给出原因；勾了“记住密码”下次会自动填好（仍会弹窗，直接回车即可）。
 
@@ -67,10 +69,11 @@
 指令名是 `/kanhe`（从 1.0.0 起只有这一个指令名）
 ```
 /kanhe help                列出所有用法（只输入 /kanhe 效果相同）
-/kanhe show                查看当前密码、位数和开关状态
-/kanhe reset               按当前位数生成一个新的随机密码（立刻生效，不用重启）
-/kanhe set <新密码>        手动指定密码，位数随之改为该密码的长度
-/kanhe length <位数>       修改密码位数（4~32），并立刻生成一个该位数的新密码
+/kanhe show                查看当前密码、随机密码的形态与位数、开关状态
+/kanhe reset               按当前的随机形态与位数生成新的随机密码（立刻生效，不用重启）
+/kanhe set <密码>          手动指定密码（1~64 个可见字符，不会改动随机形态与位数）
+/kanhe length <位数>       修改随机密码的位数（4~32）并生成新密码
+/kanhe mode <形态>         修改随机密码的形态并生成新密码（digits / letters / mixed）
 /kanhe on                  开启保护
 /kanhe off                 关闭保护（关闭后谁都能进）
 ```
@@ -79,11 +82,11 @@
 ### 配置文件
 | 文件 | 作用 |
 | --- | --- |
-| 服务端 `<服务器目录>/config/kanhe.json` | `enabled`（开关）、`code`（当前密码）、`length`（密码位数，默认 6，范围 4~32）、`logCode`（是否在日志里打印密码） |
+| 服务端 `<服务器目录>/config/kanhe.json` | `enabled`（开关）、`code`（当前密码）、`mode`（随机密码形态：`digits` / `letters` / `mixed`）、`length`（随机密码位数，默认 6，范围 4~32）、`logCode`（是否在日志里打印密码） |
 | 局域网存档 `<.minecraft>/config/kanhe.json` | 同上，作用于“对局域网开放”的那个集成服务器 |
 | 客户端 `<.minecraft>/config/kanhe-client.json` | `promptAlways`（已记住密码时是否仍然弹窗，默认 true）、`rememberByDefault`、`passwords`（按服务器地址记住的密码） |
 
-首次启动会自动生成一个随机密码（默认 6 位）并写进配置，同时打印在日志里：
+首次启动会按配置的形态与位数（默认 6 位数字）生成一个随机密码并写进配置，同时打印在日志里：
 `Server password is 123456 - players enter it in the join password prompt`
 
 ---
@@ -94,7 +97,7 @@
 * **带了错误密码的登录**：会被明确告知“密码错误”（因为对方本来就知道这个服务器存在），客户端 Mod 会据此重新弹出密码框。
 * **存档主自己**（单机/局域网主机）不会被拦：主机走内存连接，不经过握手校验。
 * **局域网客人**会被拦，所以开黑的朋友也要装这个 Mod。
-* 密码是纯数字，位数可配置（默认 6 位，`/kanhe length` 改，范围 4~32）；6 位约 100 万种组合。建议配合正版验证/白名单使用；密码泄露或被爆破时，直接 `/kanhe reset` 换一个即可。
+* 随机密码支持三种形态：数字（6 位约 100 万种组合）、字母、字母+数字（6 位约 560 亿种组合）；位数用 `/kanhe length` 改，范围 4~32。只用字母会影响可读性，`set` 手动指定时最长 64 个可见字符（不能含空格）。建议配合正版验证/白名单使用；密码泄露或被爆破时，直接 `/kanhe reset` 换一个即可。
 
 ---
 
@@ -121,7 +124,7 @@
 ```
 src/main/java/com/kanhe/
   Kanhe.java              常量（modid、_id 属性名、翻译键）
-  PasswordCodes.java               6 位随机码生成/校验
+  PasswordCodes.java               随机密码生成与校验（数字 / 字母 / 混合）
   KanheConfig.java        服务端配置读写（Gson）
   KanheGate.java          服务端密码状态：生成、重置、校验
   KanheCommand.java       /kanhe 指令
@@ -179,7 +182,7 @@ src/main/resources/
 [Server thread/INFO]: System chat: Dev joined the game
 ```
 
-即：弹窗 → 掩码输入 6 位密码 → 通过校验 → 成功进入服务器。
+即：弹窗 → 掩码输入密码 → 通过校验 → 成功进入服务器。
 
 ---
 

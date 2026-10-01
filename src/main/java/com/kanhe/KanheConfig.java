@@ -11,7 +11,9 @@ public final class KanheConfig {
 
     public boolean enabled = true;
     public String code = "";
-    /** 密码位数，默认 6，可用 /kanhe length 修改。 */
+    /** 随机密码的形态：digits（数字）/ letters（字母）/ mixed（字母+数字）。 */
+    public String mode = PasswordCodes.DEFAULT_MODE.serializedName();
+    /** 随机密码的位数，默认 6，范围 4~32。手动 set 的密码不受它限制。 */
     public int length = PasswordCodes.DEFAULT_LENGTH;
     /** 加载 / 重置 / 设置密码时，是否把当前密码打印到服务端控制台。 */
     public boolean logCode = true;
@@ -28,12 +30,19 @@ public final class KanheConfig {
         } catch (Exception e) {
             Kanhe.LOGGER.warn("Could not read {} - regenerating it", path, e);
         }
+        PasswordCodes.Mode mode = PasswordCodes.Mode.byName(config.mode);
+        config.mode = (mode == null ? PasswordCodes.DEFAULT_MODE : mode).serializedName();
         config.length = PasswordCodes.clampLength(config.length <= 0 ? PasswordCodes.DEFAULT_LENGTH : config.length);
-        if (!PasswordCodes.isValid(config.code)) {
-            config.code = PasswordCodes.generate(config.length);
+        if (!PasswordCodes.isValidPassword(config.code)) {
+            config.code = PasswordCodes.generate(PasswordCodes.Mode.byName(config.mode), config.length);
         }
         config.save(path);
         return config;
+    }
+
+    public PasswordCodes.Mode randomMode() {
+        PasswordCodes.Mode mode = PasswordCodes.Mode.byName(this.mode);
+        return mode == null ? PasswordCodes.DEFAULT_MODE : mode;
     }
 
     public void save(Path path) {
