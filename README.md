@@ -40,8 +40,8 @@
 
 ### 客户端
 把 `kanhe-fabric-1.0.0+26.4-snapshot-1.jar` 放进：
-* 普通启动器（HMCL 等）：`.minecraft/mods/`
-* PCL 开启了版本隔离时：`.minecraft/versions/<版本名>/mods/`
+* 未开启版本隔离：`.minecraft/mods/`
+* 开启版本隔离：`.minecraft/versions/<版本名>/mods/`
 
 ### 服务端（Fabric 服务端）
 放进服务器的 `mods/` 目录，重启服务器即可。
