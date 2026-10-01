@@ -14,6 +14,7 @@
 | 我的世界 | Fabric Loader | Mod 版本 | 下载 |
 | --- | --- | --- | --- |
 | 26.4-snapshot-2 | 0.19.5 | 1.1.0 | `kanhe-fabric-1.1.0+26.4-snapshot-2.jar` |
+| 26.4-snapshot-1 | 0.19.5 | 1.1.0 | `kanhe-fabric-1.1.0+26.4-snapshot-1.jar` |
 | 26.4-snapshot-2 | 0.19.5 | 1.0.0 | `kanhe-fabric-1.0.0+26.4-snapshot-2.jar` |
 | 26.4-snapshot-1 | 0.19.5 | 1.0.0 | `kanhe-fabric-1.0.0+26.4-snapshot-1.jar` |
 
@@ -108,6 +109,8 @@
 ```
 
 产物：`build/libs/kanhe-fabric-<mod版本>+<游戏版本>.jar`（可直接丢进 `mods/`）。
+
+要给另一个游戏版本编 jar：把 `gradle.properties` 里的 `minecraft_version` 改成目标版本再 `build` 即可，文件名会自动带上游戏版本。
 
 命名规则：`<modid>-<加载器>-<modversion>+<游戏版本>.jar`，以后出 Forge / NeoForge 版本时把 `gradle.properties` 里的 `mod_loader` 改成 `forge` / `neoforge`，产物名自动区分（构建脚本另需一套，不是改个名字就能编）。
 
