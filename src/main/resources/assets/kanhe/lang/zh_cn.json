@@ -14,10 +14,10 @@
   "commands.kanhe.set": "密码已设置为 %s（%s 位）",
   "commands.kanhe.length": "随机密码长度已改为 %s 位，新密码：%s",
   "commands.kanhe.mode": "随机密码形态已改为「%s」，新密码：%s",
-  "commands.kanhe.mode.invalid": "没有「%s」这种形态，只能是 digits（数字）、letters（字母）或 mixed（字母+数字）",
+  "commands.kanhe.mode.invalid": "没有「%s」这种形态，只能是 digits（数字）、letters（小写字母）或 mixed（小写字母+数字）",
   "commands.kanhe.mode.digits": "数字",
-  "commands.kanhe.mode.letters": "字母",
-  "commands.kanhe.mode.mixed": "字母+数字",
+  "commands.kanhe.mode.letters": "小写字母",
+  "commands.kanhe.mode.mixed": "小写字母+数字",
   "commands.kanhe.invalid": "密码必须是 1~%s 个可见字符（不能包含空格）",
   "commands.kanhe.enabled": "服务器密码保护已启用",
   "commands.kanhe.disabled": "服务器密码保护已关闭",
@@ -26,6 +26,6 @@
   "commands.kanhe.help.reset": "/kanhe reset - 按当前的随机形态与位数生成新的随机密码",
   "commands.kanhe.help.set": "/kanhe set <密码> - 手动指定密码（不会改动随机形态与位数）",
   "commands.kanhe.help.length": "/kanhe length <4~32> - 修改随机密码的位数并生成新密码",
-  "commands.kanhe.help.mode": "/kanhe mode <digits|letters|mixed> - 修改随机密码的形态并生成新密码",
+  "commands.kanhe.help.mode": "/kanhe mode <形态> - 修改随机密码的形态并生成新密码（digits 数字、letters 小写字母、mixed 小写字母+数字）",
   "commands.kanhe.help.toggle": "/kanhe on | off - 开启 / 关闭密码保护"
 }

@@ -14,10 +14,10 @@
   "commands.kanhe.set": "Server password set to %s (%s chars)",
   "commands.kanhe.length": "Random password length is now %s, new password: %s",
   "commands.kanhe.mode": "Random password mode is now '%s', new password: %s",
-  "commands.kanhe.mode.invalid": "Unknown mode '%s' - use digits, letters or mixed",
+  "commands.kanhe.mode.invalid": "Unknown mode '%s' - use digits, lowercase letters or mixed",
   "commands.kanhe.mode.digits": "digits",
-  "commands.kanhe.mode.letters": "letters",
-  "commands.kanhe.mode.mixed": "letters+digits",
+  "commands.kanhe.mode.letters": "lowercase letters",
+  "commands.kanhe.mode.mixed": "lowercase letters+digits",
   "commands.kanhe.invalid": "The password must be 1 to %s visible characters (no spaces)",
   "commands.kanhe.enabled": "Server password protection enabled",
   "commands.kanhe.disabled": "Server password protection disabled",
@@ -26,6 +26,6 @@
   "commands.kanhe.help.reset": "/kanhe reset - generate a new random password using the current mode and length",
   "commands.kanhe.help.set": "/kanhe set <password> - set a password manually (does not change mode or length)",
   "commands.kanhe.help.length": "/kanhe length <4-32> - change the random password length and generate a new one",
-  "commands.kanhe.help.mode": "/kanhe mode <digits|letters|mixed> - change the random password mode and generate a new one",
+  "commands.kanhe.help.mode": "/kanhe mode <mode> - change the random password mode (digits / letters / mixed) and generate a new one",
   "commands.kanhe.help.toggle": "/kanhe on | off - enable or disable the protection"
 }

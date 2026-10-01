@@ -5,11 +5,13 @@ import java.util.Locale;
 import java.util.random.RandomGenerator;
 
 public final class PasswordCodes {
-    /** 随机密码的形态。 */
+    /**
+     * 随机密码的形态。字母一律只用小写 —— 密码框是掩码显示，大小写打错了玩家看不出来。
+     */
     public enum Mode {
         DIGITS("0123456789"),
-        LETTERS("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"),
-        MIXED("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+        LETTERS("abcdefghijklmnopqrstuvwxyz"),
+        MIXED("abcdefghijklmnopqrstuvwxyz0123456789");
 
         private final String alphabet;
 

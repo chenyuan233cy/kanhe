@@ -16,7 +16,7 @@ public final class KanheCommand {
         "commands.kanhe.help.reset|/kanhe reset - generate a new random password using the current mode and length",
         "commands.kanhe.help.set|/kanhe set <password> - set a password manually (does not change mode or length)",
         "commands.kanhe.help.length|/kanhe length <4-32> - change the random password length and generate a new one",
-        "commands.kanhe.help.mode|/kanhe mode <digits|letters|mixed> - change the random password mode and generate a new one",
+        "commands.kanhe.help.mode|/kanhe mode <mode> - change the random password mode (digits / letters / mixed) and generate a new one",
         "commands.kanhe.help.toggle|/kanhe on | off - enable or disable the protection"
     };
 
