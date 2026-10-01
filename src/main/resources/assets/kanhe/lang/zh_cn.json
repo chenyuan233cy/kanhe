@@ -1,7 +1,7 @@
 {
   "kanhe.screen.title": "服务器密码",
   "kanhe.screen.hint": "密码",
-  "kanhe.screen.help": "请输入管理员提供的密码（纯数字），服务器没有密码时留空即可。",
+  "kanhe.screen.help": "请输入管理员提供的密码，服务器没有密码时留空即可。",
   "kanhe.screen.server": "服务器：%s",
   "kanhe.screen.remember": "记住这个密码",
   "kanhe.screen.join": "进入服务器",
@@ -15,5 +15,11 @@
   "commands.kanhe.length": "密码位数已改为 %s 位，新密码：%s",
   "commands.kanhe.invalid": "密码必须是 %s~%s 位数字",
   "commands.kanhe.enabled": "服务器密码保护已启用",
+  "commands.kanhe.help.title": "Kanhe 进服密码指令：",
+  "commands.kanhe.help.show": "/kanhe show - 查看当前密码、位数和开关状态",
+  "commands.kanhe.help.reset": "/kanhe reset - 按当前位数生成一个新的随机密码",
+  "commands.kanhe.help.set": "/kanhe set <密码> - 手动指定密码（位数随之改变）",
+  "commands.kanhe.help.length": "/kanhe length <4~32> - 修改密码位数并生成新密码",
+  "commands.kanhe.help.toggle": "/kanhe on | off - 开启 / 关闭密码保护",
   "commands.kanhe.disabled": "服务器密码保护已关闭"
 }

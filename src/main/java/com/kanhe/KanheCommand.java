@@ -9,6 +9,15 @@ import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 
 public final class KanheCommand {
+    /** 每条帮助：翻译键|英文兜底文本。 */
+    private static final String[] HELP_LINES = {
+        "commands.kanhe.help.show|/kanhe show - show the current password, length and state",
+        "commands.kanhe.help.reset|/kanhe reset - generate a new random code with the current length",
+        "commands.kanhe.help.set|/kanhe set <code> - set a specific code (its length becomes the new length)",
+        "commands.kanhe.help.length|/kanhe length <4-32> - change the code length and generate a new code",
+        "commands.kanhe.help.toggle|/kanhe on | off - enable or disable the protection"
+    };
+
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(tree("kanhe"));
     }
@@ -16,7 +25,9 @@ public final class KanheCommand {
     private static LiteralArgumentBuilder<CommandSourceStack> tree(String name) {
         return Commands.literal(name)
             .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
-            .executes(context -> show(context.getSource()))
+            .executes(context -> help(context.getSource()))
+            .then(Commands.literal("help")
+                .executes(context -> help(context.getSource())))
             .then(Commands.literal("show")
                 .executes(context -> show(context.getSource())))
             .then(Commands.literal("reset")
@@ -31,6 +42,18 @@ public final class KanheCommand {
                 .executes(context -> toggle(context.getSource(), true)))
             .then(Commands.literal("off")
                 .executes(context -> toggle(context.getSource(), false)));
+    }
+
+    private static int help(CommandSourceStack source) {
+        source.sendSuccess(() -> Component.translatableWithFallback("commands.kanhe.help.title",
+            "Kanhe - join password commands:"), false);
+        for (String line : HELP_LINES) {
+            int split = line.indexOf('|');
+            String key = line.substring(0, split);
+            String fallback = line.substring(split + 1);
+            source.sendSuccess(() -> Component.translatableWithFallback(key, fallback), false);
+        }
+        return 1;
     }
 
     private static int show(CommandSourceStack source) {

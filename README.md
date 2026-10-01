@@ -14,6 +14,7 @@
 | 我的世界 | Fabric Loader | Mod 版本 | 下载 |
 | --- | --- | --- | --- |
 | 26.4-snapshot-1 | 0.19.5 | 1.0.0 | `kanhe-fabric-1.0.0+26.4-snapshot-1.jar` |
+| 26.4-snapshot-2 | 0.19.5 | 1.0.0 | `kanhe-fabric-1.0.0+26.4-snapshot-2.jar` |
 
 > Fabric mod 与游戏版本是绑定的，支持新版本时需要**重新编译一份 jar**，然后在这张表里加一行、发一个新的 Release —— 项目名、标题、描述都不用动。
 > Release 约定：tag 用 `v<mod版本>`（如 `v1.0.0`），标题用 `Kanhe <mod版本>`，支持的我的世界版本写在 Release 说明和上表里。
@@ -39,14 +40,14 @@
 ## 2. 安装
 
 ### 客户端
-把 `kanhe-fabric-1.0.0+26.4-snapshot-1.jar` 放进：
+把 jar（选上表里对应你游戏版本的那个）放进：
 * 未开启版本隔离：`.minecraft/mods/`
 * 开启版本隔离：`.minecraft/versions/<版本名>/mods/`
 
 ### 服务端（Fabric 服务端）
 放进服务器的 `mods/` 目录，重启服务器即可。
 
-> 需要 Fabric Loader 0.19.5（26.4-snapshot-1 对应版本）。
+> 需要 Fabric Loader 0.19.5。
 
 ---
 
@@ -65,7 +66,8 @@
 ### 管理员命令（需要 OP / 权限等级 GameMaster 以上）
 指令名是 `/kanhe`（从 1.0.0 起只有这一个指令名）
 ```
-/kanhe              查看当前密码、位数和开关状态
+/kanhe              等价于 /kanhe help，列出所有用法
+/kanhe help         同上
 /kanhe show         同上
 /kanhe reset        按当前位数生成一个新的随机密码（立刻生效，不用重启）
 /kanhe set 123456   手动指定密码，位数随之改为这个密码的长度
@@ -104,11 +106,11 @@
 ./gradlew build          # Windows: .\gradlew.bat build
 ```
 
-产物：`build/libs/kanhe-fabric-1.0.0+26.4-snapshot-1.jar`（可直接丢进 `mods/`）。
+产物：`build/libs/kanhe-fabric-<mod版本>+<游戏版本>.jar`（可直接丢进 `mods/`）。
 
 命名规则：`<modid>-<加载器>-<modversion>+<游戏版本>.jar`，以后出 Forge / NeoForge 版本时把 `gradle.properties` 里的 `mod_loader` 改成 `forge` / `neoforge`，产物名自动区分（构建脚本另需一套，不是改个名字就能编）。
 
-* 需要 **JDK 25**（26.4-snapshot-1 要求）。
+* 需要 **JDK 25**。
 * Gradle 版本由 `gradle/wrapper/gradle-wrapper.properties` 指定（9.7.1），首次构建时 wrapper 会自动下载；
   国内网络慢的话可以把里面的 `distributionUrl` 换成镜像，例如
   `https://mirrors.cloud.tencent.com/gradle/gradle-9.7.1-bin.zip`。
