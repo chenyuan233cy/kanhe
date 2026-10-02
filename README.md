@@ -15,11 +15,9 @@
 | --- | --- | --- | --- |
 | 26.4-snapshot-2 | 0.19.5 | 1.1.0 | `kanhe-fabric-1.1.0+26.4-snapshot-2.jar` |
 | 26.4-snapshot-1 | 0.19.5 | 1.1.0 | `kanhe-fabric-1.1.0+26.4-snapshot-1.jar` |
-| 26.4-snapshot-2 | 0.19.5 | 1.0.0 | `kanhe-fabric-1.0.0+26.4-snapshot-2.jar` |
-| 26.4-snapshot-1 | 0.19.5 | 1.0.0 | `kanhe-fabric-1.0.0+26.4-snapshot-1.jar` |
 
-> 同一个游戏版本可能有多个 Mod 版本，**下载表格最上面那一行**（最新）即可。Fabric mod 与游戏版本是绑定的，支持新版本时需要**重新编译一份 jar**，然后在这张表里加一行、发一个新的 Release —— 项目名、标题、描述都不用动。
-> Release 约定：tag 用 `v<mod版本>`（如 `v1.0.0`），标题用 `Kanhe <mod版本>`，支持的我的世界版本写在 Release 说明和上表里。
+> 表里只列**当前版本**（每个游戏版本一行）。旧版本（1.0.0）在 [Releases](https://github.com/chenyuan233cy/kanhe/releases) 页里仍然可以下载。Fabric mod 与游戏版本是绑定的，支持新版本时需要**重新编译一份 jar**，然后在这张表里加一行、发一个新的 Release —— 项目名、标题、描述都不用动。
+> Release 约定：tag 用 `v<mod版本>`（如 `v1.1.0`），标题用 `Kanhe <mod版本>`，支持的我的世界版本写在 Release 说明和上表里。
 
 ---
 
