@@ -5,7 +5,7 @@
   "name": "Kanhe",
   "description": "Asks for a masked join password before connecting to a server; the password is verified server-side, and the admin can rotate it or change its format (digits / letters / mixed) and length at any time.",
   "authors": [
-    "尘渊233"
+    "ChenYuan233"
   ],
   "contact": {
     "homepage": "https://github.com/chenyuan233cy/kanhe",
