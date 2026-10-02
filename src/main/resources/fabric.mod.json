@@ -3,10 +3,15 @@
   "id": "kanhe",
   "version": "${version}",
   "name": "Kanhe",
-  "description": "Asks for a masked join password before connecting to a server, and lets the server admin change or rotate the numeric code (length configurable) at any time.",
+  "description": "Asks for a masked join password before connecting to a server; the password is verified server-side, and the admin can rotate it or change its format (digits / letters / mixed) and length at any time.",
   "authors": [
-    "Kanhe"
+    "尘渊233"
   ],
+  "contact": {
+    "homepage": "https://github.com/chenyuan233cy/kanhe",
+    "sources": "https://github.com/chenyuan233cy/kanhe",
+    "issues": "https://github.com/chenyuan233cy/kanhe/issues"
+  },
   "license": "MIT",
   "environment": "*",
   "entrypoints": {
