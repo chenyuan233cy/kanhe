@@ -13,6 +13,7 @@
 
 | 我的世界 | Fabric Loader | Mod 版本 | 下载 |
 | --- | --- | --- | --- |
+| 26.4-snapshot-3 | 0.19.5 | 1.1.0 | `kanhe-fabric-1.1.0+26.4-snapshot-3.jar` |
 | 26.4-snapshot-2 | 0.19.5 | 1.1.0 | `kanhe-fabric-1.1.0+26.4-snapshot-2.jar` |
 | 26.4-snapshot-1 | 0.19.5 | 1.1.0 | `kanhe-fabric-1.1.0+26.4-snapshot-1.jar` |
 
